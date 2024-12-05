@@ -1,0 +1,166 @@
+.lesson-content {
+    flex-grow: 1; /* Để nội dung chiếm không gian còn lại */
+    padding: 20px;
+  }
+  
+  .lesson-item {
+    display: flex; /* Sử dụng flexbox để căn chỉnh */
+    justify-content: space-between; /* Căn chỉnh các phần tử */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    margin-bottom: 10px; /* Khoảng cách giữa các bài học */
+  }
+  
+  .lesson-title {
+    cursor: pointer; /* Thay đổi con trỏ khi di chuột qua tiêu đề bài học */
+  }
+  
+  .view-button {
+    margin-left: 10px; /* Khoảng cách giữa tiêu đề bài học và nút */
+  }
+  
+  .lesson-details {
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+  
+  .centered-content {
+    flex: 1; /* Chiếm hết không gian còn lại */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Căn giữa theo chiều ngang */
+    justify-content: center; /* Căn giữa theo chiều dọc */
+  }
+  
+  .lessons-list {
+    padding: 20px;
+  }
+  
+  .lesson-item {
+    background: #fff;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .lesson-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .lesson-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #333;
+  }
+  
+  .view-button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .view-button:hover {
+    background: #0056b3;
+  }
+  
+  .lesson-content {
+    padding: 20px;
+  }
+  
+  .lesson-details {
+    margin-bottom: 20px;
+  }
+  
+  .lesson-details h4 {
+    color: #444;
+    margin-bottom: 10px;
+  }
+  
+  .lesson-details p {
+    color: #666;
+    line-height: 1.6;
+  }
+  
+  .documents-section {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 6px;
+  }
+  
+  .documents-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .document-item {
+    margin: 10px 0;
+  }
+  
+  .document-button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    color: #333;
+    cursor: pointer;
+    padding: 8px 12px;
+    width: 100%;
+    text-align: left;
+    transition: all 0.3s ease;
+  }
+  
+  .document-button:hover {
+    background: #e9ecef;
+    border-color: #ced4da;
+  }
+  
+  .document-name {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .view-text {
+    color: #007bff;
+    font-weight: 500;
+    padding: 4px 8px;
+    border-radius: 4px;
+    background: rgba(0, 123, 255, 0.1);
+  }
+  
+  .document-button:hover .view-text {
+    background: rgba(0, 123, 255, 0.2);
+  }
+  
+  .document-item {
+    margin: 8px 0;
+  }
+  
+  .documents-section {
+    background: #fff;
+    padding: 15px;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+  
+  .documents-list {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+  }
+  
+  .selected {
+    border-left: 4px solid #007bff;
+  }

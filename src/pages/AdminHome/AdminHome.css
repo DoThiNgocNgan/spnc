@@ -1,0 +1,18 @@
+/* testapp/src/pages/AdminHome/AdminHome.css */
+
+.chart {
+    flex: 1; /* Để các biểu đồ có kích thước bằng nhau */
+    max-width: 600px; /* Giới hạn chiều rộng tối đa của mỗi biểu đồ */
+    margin: 0 20px; /* Khoảng cách giữa các biểu đồ */
+}
+
+.dashboard-nav a {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Inherit color from parent element */
+}
+
+.dashboard-nav a:hover {
+    text-decoration: none; /* Ensure no underline on hover */
+    color: inherit; /* Maintain color on hover */
+}
+

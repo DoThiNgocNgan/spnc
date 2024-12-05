@@ -1,0 +1,75 @@
+.reset-link-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: #f0f4f8; /* Màu nền */
+}
+
+.form-container {
+    flex: 0 0 400px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-right: 20px;
+    border-radius: 8px;
+    background-color: white;
+    margin-left: 20px;
+}
+
+.info-container {
+    flex: 1;
+    background-color: #00cfff; /* Màu nền bên phải */
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: 20px;
+}
+
+h1, h2 {
+    margin: 0 0 10px;
+}
+
+p {
+    margin-bottom: 20px;
+}
+
+input {
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+.reset-link-button {
+    background-color: #007bff;
+}
+
+button:hover {
+    background-color: #004494; /* Màu nút khi hover */
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin: 10px 0;
+}

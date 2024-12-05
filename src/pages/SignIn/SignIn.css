@@ -1,0 +1,92 @@
+.sign-in-container {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+button {
+  padding: 0.75rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.social-signin {
+  margin-top: 1.5rem;
+}
+
+.social-signin button {
+  width: 100%;
+  margin-bottom: 0.75rem;
+  padding: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.google-signin {
+  background-color: #fff;
+  color: #757575;
+  border: 1px solid #ddd;
+}
+
+.google-signin:hover {
+  background-color: #f1f1f1;
+}
+
+.facebook-signin {
+  background-color: #3b5998;
+}
+
+.facebook-signin:hover {
+  background-color: #2d4373;
+}
+
+.social-signin button svg {
+  margin-right: 0.5rem;
+  font-size: 1.2rem;
+}
+
+p {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}

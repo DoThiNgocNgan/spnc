@@ -1,0 +1,263 @@
+.user-course-container {
+  display: flex;
+  min-height: 100vh;
+  width: 100vw;
+  background-color: #f3f4fc;
+  color: #ffffff;
+}
+
+.sidebar {
+  width: 280px;
+  background-color: #ffffff;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+  padding: 30px 20px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.sidebar h2 {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+.sidebar nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar nav ul li {
+  margin-bottom: 15px;
+}
+
+.sidebar nav ul li a {
+  color: #333;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.sidebar nav ul li a:hover {
+  background-color: #f5f7fb;
+  color: #007bff;
+}
+
+.sidebar-footer {
+  margin-top: auto;
+}
+
+div.sidebar-footer a {
+  display: block;
+  color: #333;
+  text-decoration: none;
+  margin-top: 10px;
+}
+
+.main-content {
+  flex: 1;
+  padding: 40px;
+  background-color: #f5f7fb;
+}
+
+.main-content header {
+  margin-bottom: 20px;
+}
+
+.main-content header h1 {
+  color: #2b2b3d;
+  margin-bottom: 30px;
+  font-size: 2rem;
+}
+
+.course-section {
+  background-color: transparent;
+  padding: 0;
+}
+
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 30px;
+  padding: 0;
+}
+
+.course-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.course-card img {
+  width: 100%;
+  height: 200px; /* Đặt chiều cao cố định cho tất cả hình ảnh */
+  object-fit: cover; /* Đảm bảo hình ảnh lấp đầy không gian mà không bị biến dạng */
+}
+
+.course-card h3 {
+  padding: 10px;
+  margin: 0;
+  color:pink;
+}
+
+.course-card p {
+  padding: 0 15px;
+  margin: 5px 0;
+  color: #a0a0a0;
+}
+
+.course-date {
+  font-size: 0.9em;
+}
+
+.lets-go-button {
+  margin: 10px;
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.lets-go-button:hover {
+  background-color: #005a9e;
+}
+
+.filter-section {
+  margin-bottom: 20px;
+}
+
+.filter-buttons, .view-toggle {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.filter-button, .view-button {
+  padding: 5px 10px;
+  background-color: #e0e0e0;
+  border: none;
+  cursor: pointer;
+}
+
+.filter-button.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.homework-section {
+  margin-bottom: 20px;
+}
+
+.code-editor {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.editor-controls {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.code-area {
+  padding: 20px;
+  background-color: #1e1e1e;
+  color: #d4d4d4;
+}
+
+.editor-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #f0f0f0;
+}
+
+.run-button, .send-button {
+  padding: 5px 10px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.send-button {
+  background-color: #007bff;
+}
+
+.course-card .course-date {
+  padding: 0 15px 10px;
+  margin: 0;
+  color: #a0a0a0;
+  font-size: 12px;
+}
+
+/* Remove underline from all links */
+a {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Inherit color from parent element */
+}
+
+a:hover {
+    text-decoration: none; /* Ensure no underline on hover */
+    color: inherit; /* Maintain color on hover */
+}
+
+.course-button {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  border: none;
+  border-radius: 15px;
+  background-color: white;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.course-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  margin-bottom: 0;
+  border-radius: 15px 15px 0 0;
+}
+
+.course-button h3 {
+  padding: 20px 20px 10px;
+  font-size: 1.2rem;
+  color: #2b2b3d;
+  margin: 0;
+}
+
+.course-button p {
+  padding: 0 20px 20px;
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.course-button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.course-button h3 {
+  margin: 10px 0;
+  color: #333;
+}
+
+.course-button p {
+  color: #666;
+  font-size: 14px;
+}
+

@@ -1,0 +1,85 @@
+.create-account-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.social-signup {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.google-signup, .facebook-signup {
+    width: 48%;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.divider {
+    text-align: center;
+    margin: 20px 0;
+    color: #888;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.create-account-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #ff7f50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.login-link a {
+    color: #ff7f50;
+    text-decoration: none;
+}
+
+.user-type-selection {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.user-type-icon {
+    flex: 1;
+    text-align: center;
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.user-type-icon.active {
+    background-color: #ff7f50; /* Highlight active selection */
+    color: white;
+}
+
+.user-type-icon p {
+    margin: 0;
+}

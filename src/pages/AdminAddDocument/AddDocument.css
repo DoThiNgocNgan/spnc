@@ -1,0 +1,23 @@
+.content {
+    display: flex; /* Sử dụng flexbox để căn giữa */
+    flex-direction: column; /* Căn giữa theo chiều dọc */
+    align-items: center; /* Căn giữa theo chiều ngang */
+    justify-content: center; /* Căn giữa theo chiều dọc */
+    padding: 20px; /* Thêm khoảng cách bên trong */
+    background-color: #f9f9f9; /* Thêm màu nền nhẹ */
+    border-radius: 8px; /* Bo góc */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Thêm bóng đổ */
+    transition: transform 0.3s; /* Thêm hiệu ứng chuyển động */
+}
+
+/* Remove underline from all links */
+a {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Inherit color from parent element */
+}
+
+a:hover {
+    text-decoration: none; /* Ensure no underline on hover */
+    color: inherit; /* Maintain color on hover */
+}
+

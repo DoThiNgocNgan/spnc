@@ -1,0 +1,62 @@
+.programming-exercise {
+    display: flex; /* Sử dụng flexbox để chia bố cục */
+    height: 100vh; /* Chiều cao toàn bộ trang */
+}
+
+.sidebar {
+    width: 25%; /* Chiều rộng của sidebar */
+    background-color: #f4f4f4; /* Màu nền cho sidebar */
+    padding: 20px; /* Khoảng cách bên trong */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Đổ bóng cho sidebar */
+}
+
+.main-content {
+    width: 75%; /* Chiều rộng của nội dung chính */
+    padding: 20px; /* Khoảng cách bên trong */
+    background-color: #ffffff; /* Màu nền cho nội dung chính */
+}
+
+h1 {
+    font-size: 24px; /* Kích thước chữ cho tiêu đề */
+    margin-bottom: 20px; /* Khoảng cách dưới tiêu đề */
+}
+
+textarea {
+    width: 100%; /* Chiều rộng đầy đủ */
+    height: 200px; /* Chiều cao cho textarea */
+    margin-bottom: 10px; /* Khoảng cách dưới textarea */
+    padding: 10px; /* Khoảng cách bên trong */
+    border: 1px solid #ccc; /* Đường viền cho textarea */
+    border-radius: 4px; /* Bo góc cho textarea */
+    font-family: monospace; /* Font chữ cho textarea */
+}
+
+input[type="text"] {
+    width: 100%; /* Chiều rộng đầy đủ */
+    margin-bottom: 10px; /* Khoảng cách dưới input */
+    padding: 10px; /* Khoảng cách bên trong */
+    border: 1px solid #ccc; /* Đường viền cho input */
+    border-radius: 4px; /* Bo góc cho input */
+}
+
+button {
+    background-color: #007bff; /* Màu nền cho nút */
+    color: white; /* Màu chữ cho nút */
+    border: none; /* Không có đường viền */
+    border-radius: 4px; /* Bo góc cho nút */
+    padding: 10px 15px; /* Khoảng cách bên trong nút */
+    cursor: pointer; /* Con trỏ khi di chuột qua nút */
+    margin-right: 10px; /* Khoảng cách bên phải giữa các nút */
+}
+
+button:hover {
+    background-color: #0056b3; /* Màu nền khi di chuột qua nút */
+}
+
+.output {
+    margin-top: 20px; /* Khoảng cách trên khung output */
+    padding: 10px; /* Khoảng cách bên trong khung output */
+    border: 1px solid #ccc; /* Đường viền cho khung output */
+    border-radius: 4px; /* Bo góc cho khung output */
+    background-color: #f9f9f9; /* Màu nền cho khung output */
+}

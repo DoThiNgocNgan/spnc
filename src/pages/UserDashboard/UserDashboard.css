@@ -1,0 +1,34 @@
+.welcome-section {
+    background-color: #58baab; /* Màu nền giống như hình */
+    border: 2px solid #58baab; /* Khung màu */
+
+    padding: 20px; /* Khoảng cách bên trong */
+    display: flex; /* Sử dụng flexbox */
+    align-items: center; /* Căn giữa theo chiều dọc */
+}
+
+.welcome-section img {
+    margin-left: auto; /* Đẩy hình ảnh sang bên phải */
+    width: 200px; /* Kích thước hình ảnh */
+}
+
+.dropdown {
+  display: none; /* Ẩn menu sổ xuống mặc định */
+}
+
+.dropdown-toggle:hover + .dropdown {
+  display: block; /* Hiện menu khi di chuột qua */
+}
+
+.dropdown-menu {
+  display: none; /* Ẩn menu dropdown mặc định */
+  position: absolute; /* Đặt vị trí tuyệt đối để menu không ảnh hưởng đến bố cục */
+  background-color: white; /* Màu nền cho menu */
+  border: 1px solid #ccc; /* Đường viền cho menu */
+  z-index: 1000; /* Đảm bảo menu nằm trên các phần tử khác */
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block; /* Hiện menu khi di chuột qua phần tử cha */
+}
+

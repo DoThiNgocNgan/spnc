@@ -1,0 +1,100 @@
+.course-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+}
+
+.course {
+  flex: 1;
+  min-width: 300px;
+  max-width: calc(33.333% - 20px);
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.lessons-container {
+  margin-top: 15px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.lesson-item {
+  margin-bottom: 10px;
+}
+
+.lesson-header {
+  margin-bottom: 10px;
+}
+
+.lesson-button {
+  padding: 10px 15px;
+  background-color: #75bb38;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+
+.lesson-button.active {
+  background-color: #5a9c2b;
+}
+
+.lesson-content {
+  margin-left: 20px;
+  padding: 15px;
+  border-left: 3px solid #75bb38;
+}
+
+.lesson-details {
+  margin-bottom: 20px;
+}
+
+.documents-section {
+  margin-top: 15px;
+}
+
+.documents-list {
+  list-style: none;
+  padding: 0;
+}
+
+.document-item {
+  margin: 10px 0;
+}
+
+.document-link {
+  display: flex;
+  align-items: center;
+  color: #2c5282;
+  text-decoration: none;
+}
+
+.document-link:hover {
+  text-decoration: underline;
+}
+
+.course-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.add-button {
+  flex: 1;
+  padding: 8px;
+  text-align: center;
+  background: #007bff;
+  color: white;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+
+.add-button:hover {
+  background: #0056b3;
+}

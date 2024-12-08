@@ -1,30 +1,50 @@
 import axios from 'axios';
-import { API_URLS } from '../api/api';
 
-export const createExerciseWithTestcases = async (exerciseData, testCases) => {
-    const token = localStorage.getItem('token');
-    
-    const config = {
-        headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-        }
-    };
+const BASE_URL = 'http://localhost:5000/api';
 
+export const createExercise = async (formData) => {
     try {
-        // Gộp exercise data và test cases vào cùng một request
-        const requestData = {
-            ...exerciseData,
-            testCases: testCases.map(tc => ({
-                input: tc.input,
-                output: tc.output
-            }))
-        };
-
-        const response = await axios.post(API_URLS.createExercise, requestData, config);
+        const token = localStorage.getItem('token');
+        const response = await axios.post(`${BASE_URL}/exercises`, formData, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'multipart/form-data'
+            }
+        });
         return response.data;
     } catch (error) {
-        console.error('Error in createExerciseWithTestcases:', error);
+        console.error('Error creating exercise:', error);
+        throw error;
+    }
+};
+
+export const getExercisesByLesson = async (lessonId) => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get(`${BASE_URL}/exercises/lesson/${lessonId}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        console.log('Exercise data from API:', response.data);
+        return Array.isArray(response.data) ? response.data : [];
+    } catch (error) {
+        console.error('Error fetching exercises:', error);
+        return [];
+    }
+};
+
+export const getExerciseById = async (id) => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get(`${BASE_URL}/exercises/${id}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching exercise:', error);
         throw error;
     }
 }; 

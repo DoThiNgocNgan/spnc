@@ -1,60 +1,90 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./AddAssignment.css";
-import { Link } from "react-router-dom"; // Thêm import Link
+import { Link } from "react-router-dom";
+import { createExercise } from "../../services/exerciseService";
 
 const AddAssignment = () => {
-  const [assignmentCode, setAssignmentCode] = useState("");
-  const [assignmentName, setAssignmentName] = useState("");
-  const [assignmentType, setAssignmentType] = useState("");
-  const [score, setScore] = useState("");
-  const [content, setContent] = useState("");
-  const [testCases, setTestCases] = useState(Array(10).fill(""));
+  const navigate = useNavigate();
+  const [courses, setCourses] = useState([]);
+  const [lessons, setLessons] = useState([]);
+  const [formData, setFormData] = useState({
+    course_id: "",
+    lesson_id: "",
+    code: "",
+    title: "",
+    type: "",
+    points: "",
+  });
+  const [pdfFile, setPdfFile] = useState(null);
 
-  const handleAssignmentCodeChange = (e) => {
-    setAssignmentCode(e.target.value);
-  };
+  useEffect(() => {
+    fetchCourses();
+  }, []);
 
-  const handleAssignmentNameChange = (e) => {
-    setAssignmentName(e.target.value);
-  };
-
-  const handleAssignmentTypeChange = (e) => {
-    setAssignmentType(e.target.value);
-  };
-
-  const handleScoreChange = (e) => {
-    setScore(e.target.value);
-  };
-
-  const handleContentChange = (e) => {
-    setContent(e.target.value);
-  };
-
-  const handleTestCasesChange = (index, e) => {
-    const updatedTestCases = testCases.map((testCase, idx) => {
-      if (idx === index) {
-        return e.target.value;
-      }
-      return testCase;
-    });
-    setTestCases(updatedTestCases);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Add validation logic here
-    if (
-      !assignmentCode ||
-      !assignmentName ||
-      !assignmentType ||
-      !score ||
-      !content
-    ) {
-      alert("Please fill in all the required fields.");
-      return;
+  useEffect(() => {
+    if (formData.course_id) {
+      fetchLessons(formData.course_id);
     }
-    // Assuming there's a function to handle the form submission
-    // handleSubmitForm(assignmentCode, assignmentName, assignmentType, score, content, testCases);
+  }, [formData.course_id]);
+
+  const fetchCourses = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/courses');
+      const data = await response.json();
+      setCourses(data);
+    } catch (error) {
+      console.error('Error fetching courses:', error);
+    }
+  };
+
+  const fetchLessons = async (courseId) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/courses/${courseId}/lessons`);
+      const data = await response.json();
+      setLessons(data);
+    } catch (error) {
+      console.error('Error fetching lessons:', error);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file && file.type === 'application/pdf') {
+      setPdfFile(file);
+    } else {
+      alert('Vui lòng chọn file PDF!');
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const formDataToSend = new FormData();
+      
+      Object.keys(formData).forEach(key => {
+        formDataToSend.append(key, formData[key]);
+      });
+
+      if (pdfFile) {
+        formDataToSend.append('pdfFile', pdfFile);
+      }
+
+      await createExercise(formDataToSend);
+      alert('Bài tập đã được tạo thành công!');
+      navigate('/list-homework');
+    } catch (error) {
+      alert('Có lỗi xảy ra khi tạo bài tập');
+      console.error('Error creating exercise:', error);
+    }
   };
 
   return (
@@ -64,7 +94,7 @@ const AddAssignment = () => {
           <span>Newlearning</span>
         </div>
         <ul>
-          <li className="active">
+          <li>
             <Link to="/admin-home">
               <i className="icon">📊</i> Bảng điều khiển
             </Link>
@@ -85,109 +115,110 @@ const AddAssignment = () => {
             </Link>
           </li>
         </ul>
-        <div className="nav-footer">
-          <Link to="#settings">
-            <i className="icon">⚙️</i> Cài đặt
-          </Link>
-          <Link to="#account">
-            <i className="icon">👤</i> Tài khoản
-          </Link>
-        </div>
       </nav>
       <main className="main-content">
         <h2>Tạo bài tập mới</h2>
         <form onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="assignmentCode">Mã bài:</label>
-            <input
-              type="text"
-              id="assignmentCode"
-              name="assignmentCode"
-              value={assignmentCode}
-              onChange={handleAssignmentCodeChange}
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="assignmentName">Tên bài:</label>
-            <input
-              type="text"
-              id="assignmentName"
-              name="assignmentName"
-              value={assignmentName}
-              onChange={handleAssignmentNameChange}
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="assignmentType">Dạng bài:</label>
+            <label htmlFor="course_id">Khóa học:</label>
             <select
-              id="assignmentType"
-              name="assignmentType"
-              value={assignmentType}
-              onChange={handleAssignmentTypeChange}
+              id="course_id"
+              name="course_id"
+              value={formData.course_id}
+              onChange={handleInputChange}
               required
             >
-              <option value="">None selected</option>
-              <option value="stack_queue">Ngăn xếp và hàng đợi</option>
-              <option value="binary_search_tree">Cây nhị phân tìm kiếm</option>
-              <option value="graph_theory">Lý thuyết đồ thị</option>
+              <option value="">Chọn khóa học</option>
+              {courses.map(course => (
+                <option key={course._id} value={course._id}>
+                  {course.title}
+                </option>
+              ))}
             </select>
           </div>
+
           <div>
-            <label htmlFor="score">Thang điểm:</label>
+            <label htmlFor="lesson_id">Bài học:</label>
+            <select
+              id="lesson_id"
+              name="lesson_id"
+              value={formData.lesson_id}
+              onChange={handleInputChange}
+              required
+              disabled={!formData.course_id}
+            >
+              <option value="">Chọn bài học</option>
+              {lessons.map(lesson => (
+                <option key={lesson._id} value={lesson._id}>
+                  {lesson.title}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label htmlFor="code">Mã bài:</label>
+            <input
+              type="text"
+              id="code"
+              name="code"
+              value={formData.code}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+
+          <div>
+            <label htmlFor="title">Tên bài:</label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              value={formData.title}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+
+          <div>
+            <label htmlFor="type">Loại bài tập:</label>
+            <select
+              id="type"
+              name="type"
+              value={formData.type}
+              onChange={handleInputChange}
+              required
+            >
+              <option value="">Chọn loại bài tập</option>
+              <option value="multiple_choice">Trắc nghiệm</option>
+              <option value="coding">Lập trình</option>
+            </select>
+          </div>
+
+          <div>
+            <label htmlFor="points">Điểm:</label>
             <input
               type="number"
-              id="score"
-              name="score"
-              value={score}
-              onChange={handleScoreChange}
+              id="points"
+              name="points"
+              value={formData.points}
+              onChange={handleInputChange}
               min="0"
               required
             />
           </div>
+
           <div>
-            <label htmlFor="content">Nội dung bài tập:</label>
-            <textarea
-              id="content"
-              name="content"
-              value={content}
-              onChange={handleContentChange}
-              rows="4"
+            <label htmlFor="pdfFile">File PDF bài tập:</label>
+            <input
+              type="file"
+              id="pdfFile"
+              accept=".pdf"
+              onChange={handleFileChange}
               required
-            ></textarea>
+            />
           </div>
-          <div>
-            <h3>Test Cases</h3>
-            <div className="test-cases-container">
-              {[...Array(10)].map((_, index) => (
-                <div key={index} className="test-case-row">
-                  <div className="test-case-input">
-                    <label htmlFor={`testCase${index + 1}`}>
-                      Input {index + 1}:
-                    </label>
-                    <input
-                      type="text"
-                      id={`testCase${index + 1}`}
-                      name={`testCase${index + 1}`}
-                      value={testCases[index]}
-                      onChange={(e) => handleTestCasesChange(index, e)}
-                    />
-                  </div>
-                  <div className="test-case-output">
-                    <label htmlFor={`output${index + 1}`}>
-                      Output {index + 1}:
-                    </label>
-                    <input
-                      type="text"
-                      id={`output${index + 1}`}
-                      name={`output${index + 1}`}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+
           <button type="submit" className="submit-button">
             Thêm bài tập
           </button>

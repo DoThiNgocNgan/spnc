@@ -1,8 +1,81 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./ListHomework.css";
 import { Link } from "react-router-dom";
+import { getExercisesByLesson } from "../../services/exerciseService";
 
 const ListHomework = () => {
+  const [activeLesson, setActiveLesson] = useState(null);
+  const [courses, setCourses] = useState([]);
+  const [lessons, setLessons] = useState({});
+  const [exercises, setExercises] = useState({});
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    fetchCourses();
+  }, []);
+
+  const fetchCourses = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/courses');
+      if (!response.ok) throw new Error('Failed to fetch courses');
+      const data = await response.json();
+      setCourses(data);
+      data.forEach(course => fetchLessons(course._id));
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  const fetchLessons = async (courseId) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/courses/${courseId}/lessons`);
+      if (!response.ok) throw new Error('Failed to fetch lessons');
+      const data = await response.json();
+      setLessons(prev => ({
+        ...prev,
+        [courseId]: data
+      }));
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  const fetchExercises = async (lessonId) => {
+    setLoading(true);
+    try {
+      const data = await getExercisesByLesson(lessonId);
+      console.log('Fetched exercises for lesson:', lessonId, data);
+      
+      data.forEach(exercise => {
+        if (exercise.pdfFile) {
+          console.log('Exercise PDF file:', exercise.pdfFile);
+        }
+      });
+      
+      setExercises(prev => ({
+        ...prev,
+        [lessonId]: data
+      }));
+    } catch (error) {
+      console.error('Error fetching exercises:', error);
+      setExercises(prev => ({
+        ...prev,
+        [lessonId]: []
+      }));
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const toggleLesson = (lessonId) => {
+    if (activeLesson === lessonId) {
+      setActiveLesson(null);
+    } else {
+      setActiveLesson(lessonId);
+      fetchExercises(lessonId);
+    }
+  };
+
   return (
     <div className="dashboard">
       <nav className="dashboard-nav">
@@ -10,77 +83,97 @@ const ListHomework = () => {
           <span>Newlearning</span>
         </div>
         <ul>
-          <li className="active">
-            <Link to="/admin-home">
-              <i className="icon">📊</i> Bảng điều khiển
-            </Link>
-          </li>
-          <li>
-            <Link to="/admin">
-              <i className="icon">📚</i> Khóa học
-            </Link>
-          </li>
-          <li>
-            <Link to="/list-homework">
-              <i className="icon">📝</i> Bài tập
-            </Link>
-          </li>
-          <li>
-            <Link to="/view-progress">
-              <i className="icon">🚀</i> Đánh giá
-            </Link>
-          </li>
+          <li><Link to="/admin-home"><i className="icon">📊</i> Bảng điều khiển</Link></li>
+          <li><Link to="/admin"><i className="icon">📚</i> Khóa học</Link></li>
+          <li><Link to="/list-homework"><i className="icon">📝</i> Bài tập</Link></li>
+          <li><Link to="/view-progress"><i className="icon">🚀</i> Đánh giá</Link></li>
         </ul>
-        <div className="nav-footer">
-          <Link to="#settings">
-            <i className="icon">⚙️</i> Cài đặt
-          </Link>
-          <Link to="#account">
-            <i className="icon">👤</i> Tài khoản
-          </Link>
-        </div>
       </nav>
-      <div className="main-content">
-        <h2>Danh sách Bài tập</h2>
-        <Link to="/add-assignment">
-          <button className="add-button">Thêm bài tập</button>
-        </Link>
-        <select className="homework-select">
-          <option value="stack and queue">Ngăn xếp và hàng đợi</option>
-          <option value="bst">Cây nhị phân tìm kiếm</option>
-          <option value="graph">Lý thuyết đồ thị</option>
-        </select>
-        <table className="homework-table">
-          <thead>
-            <tr>
-              <th>stt</th>
-              <th>Mã bài</th>
-              <th>Tên bài</th>
-              <th>Điểm exp</th>
-              <th>S/L đúng</th>
-            </tr>
-          </thead>
-          <tbody>
-            {/* Example rows */}
-            <tr>
-              <td>1</td>
-              <td>ChiaDoAn</td>
-              <td>Chia Đồ Ăn</td>
-              <td>30</td>
-              <td>11/20</td>
-              
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>BSTree_Test</td>
-              <td>Cây nhị phân tìm kiếm</td>
-              <td>20</td>
-              <td>13/28</td>
-              
-            </tr>
-            {/* Add more rows as needed */}
-          </tbody>
-        </table>
+
+      <div className="course-list">
+        {courses.map(course => (
+          <div key={course._id} className="course">
+            <h2>{course.title}</h2>
+            <div className="lessons-container">
+              {lessons[course._id]?.map(lesson => (
+                <div key={lesson._id} className="lesson-item">
+                  <div className="lesson-header">
+                    <button
+                      onClick={() => toggleLesson(lesson._id)}
+                      className={`lesson-button ${activeLesson === lesson._id ? 'active' : ''}`}
+                    >
+                      {lesson.title}
+                    </button>
+                  </div>
+
+                  {activeLesson === lesson._id && (
+                    <div className="lesson-content">
+                      <div className="lesson-details">
+                        <h4>Nội dung bài học:</h4>
+                        <p>{lesson.content}</p>
+
+                        <div className="exercises-section">
+                          <h4>Bài tập trong bài học:</h4>
+                          {loading ? (
+                            <div className="loading">Đang tải bài tập...</div>
+                          ) : exercises[lesson._id]?.length > 0 ? (
+                            <ul className="exercises-list">
+                              {exercises[lesson._id].map(exercise => (
+                                <li key={exercise._id} className="exercise-item">
+                                  <div className="exercise-info">
+                                    <div className="exercise-header">
+                                      <h5>{exercise.title}</h5>
+                                      <span className="exercise-type">
+                                        {exercise.type === 'coding' ? 'Bài tập lập trình' : 'Bài tập trắc nghiệm'}
+                                      </span>
+                                    </div>
+                                    <div className="exercise-content">
+                                      <p>{exercise.content}</p>
+                                      <p className="points">Điểm: {exercise.points}</p>
+                                    </div>
+                                    {exercise.pdfFile && (
+                                      <div className="pdf-container">
+                                        <a
+                                          href={`http://localhost:5000${exercise.pdfFile}`}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                          className="document-link"
+                                          onClick={(e) => {
+                                            console.log('Clicking PDF link:', exercise.pdfFile);
+                                            const fullUrl = `http://localhost:5000${exercise.pdfFile}`;
+                                            console.log('Full URL:', fullUrl);
+                                          }}
+                                        >
+                                          <i className="fas fa-file-pdf"></i>
+                                          Xem đề bài PDF ({exercise.pdfFile.split('/').pop()})
+                                        </a>
+                                      </div>
+                                    )}
+                                  </div>
+                                </li>
+                              ))}
+                            </ul>
+                          ) : (
+                            <p className="no-exercises">Chưa có bài tập nào trong bài học này</p>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            <div className="course-actions">
+              <Link 
+                to={`/add-assignment?courseId=${course._id}`}
+                className="add-button"
+              >
+                Thêm Bài Tập
+              </Link>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

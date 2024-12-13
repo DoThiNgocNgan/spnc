@@ -6,6 +6,7 @@ import { createExercise } from "../../services/exerciseService";
 
 const AddAssignment = () => {
   const navigate = useNavigate();
+  const [userRole, setUserRole] = useState('');
   const [courses, setCourses] = useState([]);
   const [lessons, setLessons] = useState([]);
   const [formData, setFormData] = useState({
@@ -17,6 +18,16 @@ const AddAssignment = () => {
     points: "",
   });
   const [pdfFile, setPdfFile] = useState(null);
+
+  useEffect(() => {
+    // Kiểm tra role từ localStorage hoặc context
+    const role = localStorage.getItem('role');
+    if (!role || (role !== 'admin' && role !== 'teacher')) {
+      navigate('/'); // Chuyển hướng nếu không có quyền
+      return;
+    }
+    setUserRole(role);
+  }, []);
 
   useEffect(() => {
     fetchCourses();

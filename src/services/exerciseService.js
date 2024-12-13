@@ -4,19 +4,19 @@ const BASE_URL = 'http://localhost:5000/api';
 
 export const createExercise = async (formData) => {
     try {
-        const token = localStorage.getItem('token');
-        const response = await axios.post(`${BASE_URL}/exercises`, formData, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'multipart/form-data'
-            }
-        });
-        return response.data;
+      const token = localStorage.getItem('token'); // Lấy token từ localStorage
+      const response = await axios.post('http://localhost:5000/api/exercises', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Authorization': `Bearer ${token}` // Thêm token vào header
+        }
+      });
+      return response.data;
     } catch (error) {
-        console.error('Error creating exercise:', error);
-        throw error;
+      console.error('Error creating exercise:', error);
+      throw error;
     }
-};
+  };
 
 export const getExercisesByLesson = async (lessonId) => {
     try {

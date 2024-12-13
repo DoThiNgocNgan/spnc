@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./UserCourse.css";
 import { Link, useNavigate } from "react-router-dom";
-import { API_URLS } from '../../api/api';
+import { API_URLS } from "../../api/api";
 
 const UserCourse = () => {
   const navigate = useNavigate();
@@ -12,6 +12,7 @@ const UserCourse = () => {
       try {
         const response = await fetch(API_URLS.getCourses);
         const data = await response.json();
+        console.log('Courses data:', data);
         setCourses(data);
       } catch (error) {
         console.error('Error fetching courses:', error);
@@ -23,6 +24,10 @@ const UserCourse = () => {
 
   const handleCourseClick = (courseId, courseTitle) => {
     navigate(`/user-view-lesson?courseId=${courseId}&courseTitle=${courseTitle}`);
+  };
+
+  const getImageUrl = (imageName) => {
+    return new URL(`../../assets/images/${imageName}`, import.meta.url).href;
   };
 
   return (
@@ -58,21 +63,29 @@ const UserCourse = () => {
 
         <section className="course-section">
           <div className="course-grid">
-            {courses.map(course => (
-              <button 
-                className="course-button" 
-                key={course._id} 
-                onClick={() => handleCourseClick(course._id, course.title)}
-              >
-                <img 
-                  src={`http://localhost:5000/images/${course.image}`} 
-                  alt={course.title}
-                  className="course-image"
-                />
-                <h3>{course.title}</h3>
-                <p>{course.description}</p>
-              </button>
-            ))}
+            {courses.map(course => {
+              console.log('Image path:', getImageUrl(course.image));
+              return (
+                <button 
+                  className="course-button" 
+                  key={course._id} 
+                  onClick={() => handleCourseClick(course._id, course.title)}
+                >
+                  <img 
+                    src={getImageUrl(course.image)}
+                    alt={course.title}
+                    className="course-image"
+                    onError={(e) => {
+                      console.log(`Failed to load image: ${course.image}`);
+                      e.target.onerror = null;
+                      e.target.src = getImageUrl('placeholder.png');
+                    }}
+                  />
+                  <h3>{course.title}</h3>
+                  <p>{course.description}</p>
+                </button>
+              );
+            })}
           </div>
         </section>
       </main>

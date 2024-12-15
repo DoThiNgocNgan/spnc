@@ -26,8 +26,7 @@ export const getExercisesByLesson = async (lessonId) => {
                 'Authorization': `Bearer ${token}`
             }
         });
-        console.log('Exercise data from API:', response.data);
-        return Array.isArray(response.data) ? response.data : [];
+        return response.data;
     } catch (error) {
         console.error('Error fetching exercises:', error);
         return [];

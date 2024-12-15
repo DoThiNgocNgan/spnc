@@ -20,6 +20,7 @@ import ResetPassword from "./pages/ResetPassword/ResetPassword";
 import ResetLink from "./pages/ResetLink/ResetLink";
 import TestEditer from "./pages/TestEditer/TestEditer"; 
 import UserExercise from "./pages/UserExercise/UserExercise"
+import TestPDF from './pages/TestPDF/TestPDF';
 import { createBrowserRouter, RouterProvider } from "react-router-dom"; 
 
 const router = createBrowserRouter([
@@ -106,6 +107,10 @@ const router = createBrowserRouter([
   {
    path: "/user-exercise",
       element: <UserExercise />,
+  },
+  {
+    path: "/test-pdf",
+    element: <TestPDF />,
   },
 ]);
 

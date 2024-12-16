@@ -21,7 +21,7 @@ export const extractTextFromPDF = async (pdfUrl) => {
     const pdfjsLib = await waitForPdfjs();
     
     // Sử dụng worker từ CDN với cùng phiên bản
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
     // Tải PDF document
     const loadingTask = pdfjsLib.getDocument({

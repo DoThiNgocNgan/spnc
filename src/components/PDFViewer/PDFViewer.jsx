@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { extractQuestionsFromPDF } from '../../services/pdfService';
 import './PDFViewer.css';
 import * as pdfjsLib from 'pdfjs-dist';
-import * as pdfjsWorker from 'pdfjs-dist/build/pdf.worker.min.mjs';
 
-pdfjsLib.GlobalWorkerOptions.workerSrc = "";
+
+pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 
 const PDFViewer = ({ pdfUrl, exerciseId }) => {
   const [questions, setQuestions] = useState([]);

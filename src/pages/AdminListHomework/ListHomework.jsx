@@ -44,14 +44,6 @@ const ListHomework = () => {
     setLoading(true);
     try {
       const data = await getExercisesByLesson(lessonId);
-      console.log('Fetched exercises for lesson:', lessonId, data);
-      
-      data.forEach(exercise => {
-        if (exercise.pdfFile) {
-          console.log('Exercise PDF file:', exercise.pdfFile);
-        }
-      });
-      
       setExercises(prev => ({
         ...prev,
         [lessonId]: data
@@ -74,6 +66,11 @@ const ListHomework = () => {
       setActiveLesson(lessonId);
       fetchExercises(lessonId);
     }
+  };
+
+  const handleViewPdf = (pdfPath) => {
+    const pdfUrl = `http://localhost:5000/${pdfPath}`;
+    window.open(pdfUrl, '_blank');
   };
 
   return (
@@ -121,34 +118,18 @@ const ListHomework = () => {
                               {exercises[lesson._id].map(exercise => (
                                 <li key={exercise._id} className="exercise-item">
                                   <div className="exercise-info">
-                                    <div className="exercise-header">
+                                    <div 
+                                      className="exercise-header clickable"
+                                      onClick={() => handleViewPdf(exercise.pdfFile)}
+                                    >
                                       <h5>{exercise.title}</h5>
                                       <span className="exercise-type">
                                         {exercise.type === 'coding' ? 'Bài tập lập trình' : 'Bài tập trắc nghiệm'}
                                       </span>
                                     </div>
                                     <div className="exercise-content">
-                                      <p>{exercise.content}</p>
                                       <p className="points">Điểm: {exercise.points}</p>
                                     </div>
-                                    {exercise.pdfFile && (
-                                      <div className="pdf-container">
-                                        <a
-                                          href={`http://localhost:5000${exercise.pdfFile}`}
-                                          target="_blank"
-                                          rel="noopener noreferrer"
-                                          className="document-link"
-                                          onClick={(e) => {
-                                            console.log('Clicking PDF link:', exercise.pdfFile);
-                                            const fullUrl = `http://localhost:5000${exercise.pdfFile}`;
-                                            console.log('Full URL:', fullUrl);
-                                          }}
-                                        >
-                                          <i className="fas fa-file-pdf"></i>
-                                          Xem đề bài PDF ({exercise.pdfFile.split('/').pop()})
-                                        </a>
-                                      </div>
-                                    )}
                                   </div>
                                 </li>
                               ))}

@@ -197,31 +197,27 @@ const PDFViewer = ({ pdfUrl, exerciseId }) => {
   const handleCodeSubmit = async () => {
     try {
       setSubmitting(true);
-      const token = localStorage.getItem('token');
-      const payload = {
-        exercise_id: exerciseId,
-        code: code
-      };
-
       const response = await fetch('http://localhost:5000/api/submissions/code', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
         },
-        body: JSON.stringify(payload)
+        body: JSON.stringify({
+          exercise_id: exerciseId,
+          code: code
+        })
       });
 
-      const data = await response.json();
-      
       if (!response.ok) {
-        throw new Error(data.message || 'Network response was not ok');
+        throw new Error('Network response was not ok');
       }
 
+      const data = await response.json();
       alert('Nộp bài thành công!');
     } catch (error) {
       console.error('Error submitting code:', error);
-      alert(`Có lỗi xảy ra khi nộp bài: ${error.message}`);
+      setSubmitError('Có lỗi xảy ra khi nộp bài');
     } finally {
       setSubmitting(false);
     }
@@ -298,7 +294,7 @@ const PDFViewer = ({ pdfUrl, exerciseId }) => {
           {showResults && (
             <div className="results">
               <h2>Kết quả</h2>
-              <p>Số câu đúng: {score}/{questions.length}</p>
+              <p>S�� câu đúng: {score}/{questions.length}</p>
               <p>Điểm: {((score/questions.length) * 10).toFixed(2)}</p>
               <button onClick={() => window.location.reload()}>Làm lại</button>
             </div>

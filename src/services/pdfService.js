@@ -62,42 +62,34 @@ export const extractQuestionsFromPDF = async (pdfUrl) => {
 const parseTextToQuestions = (text) => {
   try {
     const questions = [];
-    // Tách các câu hỏi bằng "Câu" hoặc số đầu câu
-    const questionBlocks = text.split(/(?=Câu \d+:)|(?=\d+\.)/);
+    // Modify regex to stop at "Đáp án:" section
+    const questionBlocks = text.split(/(?=Câu \d+:)|(?=\d+\.)/).filter(block => 
+      !block.includes('Đáp án:')
+    );
 
     for (let block of questionBlocks) {
       if (!block.trim()) continue;
 
-      // Tìm nội dung câu hỏi và các đáp án
       const questionMatch = block.match(/(Câu \d+:|^\d+\.)(.*?)(?=[A-D][\.\)])/s);
       if (!questionMatch) continue;
 
       const questionText = questionMatch[0].trim();
       
-      // Tìm các đáp án (không lấy phần đáp án đúng màu đỏ)
       const options = [];
-      const optionMatches = block.matchAll(/([A-D])[\.\)]([^A-D\n]+?)(?=(?:[A-D][\.\)]|Đáp án:|$))/g);
+      const optionMatches = block.matchAll(/([A-D])[\.\)]([^A-D\n]+?)(?=(?:[A-D][\.\)]|$))/g);
       
       for (const match of optionMatches) {
         const optionText = match[2].trim();
-        // Chỉ lấy phần text không phải màu đỏ
-        if (!optionText.includes('color: red')) {
-          options.push({
-            label: match[1],
-            text: optionText
-          });
-        }
+        options.push({
+          label: match[1],
+          text: optionText
+        });
       }
 
-      // Tìm đáp án đúng từ phần "Đáp án:"
-      const answerMatch = block.match(/Đáp án:?\s*([A-D])/);
-      const correctAnswer = answerMatch ? answerMatch[1] : null;
-
-      if (options.length === 4) { // Chỉ thêm câu hỏi nếu có đủ 4 đáp án
+      if (options.length === 4) {
         questions.push({
           question: questionText,
-          options: options,
-          correctAnswer: correctAnswer
+          options: options
         });
       }
     }

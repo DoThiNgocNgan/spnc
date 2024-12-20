@@ -80,7 +80,7 @@ const PDFViewer = ({ pdfUrl, exerciseId }) => {
       console.log('Extracted text:', allText); // Debug log
 
       // Tìm tất cả các câu hỏi trong văn bản
-      const questionRegex = /Câu\s+\d+[:.]\s*(.*?)(?=Câu\s+\d+[:.]\s*|$)/gs;
+      const questionRegex = /Câu\s+\d+[:.]\s*(.*?)(?=Câu\s+\d+[:.]\s*|Đáp án:|$)/gs;
       const matches = [...allText.matchAll(questionRegex)];
       
       // Xử lý từng câu hỏi
@@ -91,10 +91,6 @@ const PDFViewer = ({ pdfUrl, exerciseId }) => {
         const parts = questionText.split(/(?=[A-D][.)])/);
         const question = parts[0].trim();
         
-        // Tìm đáp án đúng (thường được đánh dấu ở cuối với format "Đáp án: X")
-        const answerMatch = questionText.match(/Đáp án:\s*([A-D])/i);
-        const correctAnswer = answerMatch ? answerMatch[1] : null;
-
         // Xử lý các đáp án
         const options = {};
         parts.slice(1).forEach(opt => {
@@ -107,8 +103,7 @@ const PDFViewer = ({ pdfUrl, exerciseId }) => {
         return {
           id: index + 1,
           text: question,
-          options: options,
-          correctAnswer: correctAnswer
+          options: options
         };
       });
 
@@ -294,7 +289,7 @@ const PDFViewer = ({ pdfUrl, exerciseId }) => {
           {showResults && (
             <div className="results">
               <h2>Kết quả</h2>
-              <p>S�� câu đúng: {score}/{questions.length}</p>
+              <p>Số câu đúng: {score}/{questions.length}</p>
               <p>Điểm: {((score/questions.length) * 10).toFixed(2)}</p>
               <button onClick={() => window.location.reload()}>Làm lại</button>
             </div>

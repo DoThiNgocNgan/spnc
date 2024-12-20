@@ -79,16 +79,22 @@ const PDFViewer = ({ pdfUrl, exerciseId }) => {
 
       console.log('Extracted text:', allText); // Debug log
 
-      // Tìm tất cả các câu hỏi trong văn bản
-      const questionRegex = /Câu\s+\d+[:.]\s*(.*?)(?=Câu\s+\d+[:.]\s*|Đáp án:|$)/gs;
+      // Tìm tất cả các câu hỏi trong văn bản, bao gồm cả phần đáp án
+      const questionRegex = /Câu\s+\d+[:.]\s*(.*?)(?=Câu\s+\d+[:.]\s*|$)/gs;
       const matches = [...allText.matchAll(questionRegex)];
       
-      // Xử lý từng câu hỏi
       const extractedQuestions = matches.map((match, index) => {
-        const questionText = match[1].trim();
+        const fullQuestionText = match[1].trim();
+        
+        // Tách phần đáp án khỏi nội dung câu hỏi
+        const answerMatch = fullQuestionText.match(/Đáp án:\s*([A-D])/i);
+        const correctAnswer = answerMatch ? answerMatch[1] : null;
+        
+        // Lấy phần nội dung câu hỏi (không bao gồm đáp án)
+        const questionTextWithOptions = fullQuestionText.split(/Đáp án:/i)[0].trim();
         
         // Tách phần câu hỏi và các đáp án
-        const parts = questionText.split(/(?=[A-D][.)])/);
+        const parts = questionTextWithOptions.split(/(?=[A-D][.)])/);
         const question = parts[0].trim();
         
         // Xử lý các đáp án
@@ -103,11 +109,12 @@ const PDFViewer = ({ pdfUrl, exerciseId }) => {
         return {
           id: index + 1,
           text: question,
-          options: options
+          options: options,
+          correctAnswer: correctAnswer
         };
       });
 
-      console.log('Extracted questions with answers:', extractedQuestions); // Debug log
+      console.log('Extracted questions with answers:', extractedQuestions);
       setQuestions(extractedQuestions);
     } catch (error) {
       console.error('Error loading PDF:', error);
@@ -179,7 +186,7 @@ const PDFViewer = ({ pdfUrl, exerciseId }) => {
       isCorrect: selectedAnswers[index] === question.correctAnswer
     }));
 
-    const score = (answersData.filter(a => a.isCorrect).length / questions.length) * 10;
+    const score = (answersData.filter(a => a.isCorrect).length ) ;
     setScore(score);
     return score;
   };

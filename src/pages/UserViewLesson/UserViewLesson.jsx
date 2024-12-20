@@ -62,7 +62,7 @@ const UserViewLesson = () => {
             <li><Link to="/user-dashboard">🏠 Bảng điều khiển</Link></li>
             <li><Link to="/user-course">📚 Khóa học</Link></li>
             <li><Link to="/user-exercise">📝 Bài tập</Link></li>
-            <li><a href="#messages">💬 Tin nhắn</a></li>
+            <li><Link to="/user-messages">💬 Tin nhắn</Link></li>
           </ul>
         </nav>
         <div className="sidebar-footer">

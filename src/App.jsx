@@ -21,6 +21,7 @@ import ResetLink from "./pages/ResetLink/ResetLink";
 import TestEditer from "./pages/TestEditer/TestEditer"; 
 import UserExercise from "./pages/UserExercise/UserExercise"
 import TestPDF from './pages/TestPDF/TestPDF';
+import UserMessages from './pages/UserMessages/UserMessages';
 import { createBrowserRouter, RouterProvider } from "react-router-dom"; 
 
 const router = createBrowserRouter([
@@ -65,7 +66,7 @@ const router = createBrowserRouter([
     element: <ViewProgress />,
   },
   {
-    path: "/view-homework",
+    path: "/view-homework/:studentId",
     element: <ViewHomework />,
   },
   {
@@ -111,6 +112,10 @@ const router = createBrowserRouter([
   {
     path: "/test-pdf",
     element: <TestPDF />,
+  },
+  {
+    path: "/user-messages",
+    element: <UserMessages />,
   },
 ]);
 

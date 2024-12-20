@@ -19,7 +19,7 @@ const UserDashboard = () => {
               <Link to="/user-exercise">📝 Bài tập</Link>
             </li>
             <li>
-              <a href="#messages">💬 Tin nhắn</a>
+              <Link to="/user-messages">💬 Tin nhắn</Link>
             </li>
           </ul>
         </nav>

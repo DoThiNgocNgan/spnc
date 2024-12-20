@@ -20,7 +20,7 @@ const UserHomework = () => {
               <Link to="/user-homework">📝 Bài tập</Link>
             </li>
             <li>
-              <a href="#messages">💬 Tin nhắn</a>
+              <Link to="/user-messages">💬 Tin nhắn</Link>
             </li>
           </ul>
         </nav>

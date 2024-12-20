@@ -1,21 +1,49 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
 import "./ViewProgress.css";
 
 const ViewProgress = () => {
   const navigate = useNavigate();
-  const students = [
-    { name: "Bea", xp: 1000, assignments: 2, progress: "50%" },
-    { name: "Eddy", xp: 2900, assignments: 3, progress: "75%" },
-    { name: "Junior", xp: 2340, assignments: 2, progress: "50%" },
-    { name: "Lin", xp: 1400, assignments: 4, progress: "100%" },
-    { name: "Oscar", xp: 200, assignments: 1, progress: "25%" },
-    { name: "Vikram", xp: 0, assignments: 0, progress: "0%" },
-  ];
+  const [students, setStudents] = useState([]);
 
-  const handleViewProgress = () => {
-    navigate("/view-homework");
+  useEffect(() => {
+    fetchStudents();
+  }, []);
+
+  const fetchStudents = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      
+      const response = await axios.get('http://localhost:5000/api/users/students', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      setStudents(response.data.map(student => ({
+        _id: student._id,
+        name: student.fullname,
+        assignments: student.assignments || 0
+      })));
+    } catch (error) {
+      console.error("Error fetching students:", error);
+      if (error.response?.status === 401) {
+        navigate('/login');
+      }
+    }
+  };
+
+  const calculateProgress = (assignments) => {
+    if (!assignments || assignments.length === 0) return "0%";
+    // Tính toán tiến độ dựa trên số bài đã hoàn thành
+    const completedAssignments = assignments.filter(assignment => assignment.completed).length;
+    const progress = (completedAssignments / assignments.length) * 100;
+    return `${Math.round(progress)}%`;
+  };
+
+  const handleViewProgress = (studentId) => {
+    navigate(`/view-homework/${studentId}`);
   };
 
   return (
@@ -60,23 +88,21 @@ const ViewProgress = () => {
           <thead>
             <tr>
               <th style={{ textAlign: "center" }}>Tên</th>
-              <th style={{ textAlign: "center" }}>Tổng điểm</th>
-              <th style={{ textAlign: "center" }}>Số lượng bài tập</th>
+              <th style={{ textAlign: "center" }}>Số bài đã nộp</th>
               <th style={{ textAlign: "center" }}>Tiến trình</th>
             </tr>
           </thead>
           <tbody>
             {students.map((student, index) => (
-              <tr key={index}>
+              <tr key={student._id || index}>
                 <td style={{ textAlign: "center" }}>{student.name}</td>
-                <td style={{ textAlign: "center" }}>{student.xp} XP</td>
                 <td style={{ textAlign: "center" }}>
-                  {student.assignments} bài tập
+                  {student.assignments} bài
                 </td>
                 <td style={{ textAlign: "center" }}>
                   <button
                     className="view-progress-button"
-                    onClick={handleViewProgress}
+                    onClick={() => handleViewProgress(student._id)}
                   >
                     Xem tiến độ
                   </button>

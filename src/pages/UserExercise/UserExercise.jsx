@@ -159,18 +159,19 @@ const UserExercise = () => {
                         )}
                     </>
                 ) : (
-                    <div className="pdf-viewer-container">
-                        <button 
-                            className="back-button"
-                            onClick={() => setShowPDFViewer(false)}
-                        >
-                            ← Quay lại
-                        </button>
-                        <PDFViewer 
-                            pdfUrl={selectedExercise.pdfUrl}
-                            exerciseId={selectedExercise._id}
-                        />
-                    </div>
+                    <>
+                        <div className="back-button"> 
+                            <button onClick={() => setShowPDFViewer(false)}>
+                                ← Quay lại
+                            </button>
+                        </div>
+                        <div className="pdf-viewer-container">
+                            <PDFViewer 
+                                pdfUrl={selectedExercise.pdfUrl}
+                                exerciseId={selectedExercise._id}
+                            />
+                        </div>
+                    </>
                 )}
             </div>
         </div>

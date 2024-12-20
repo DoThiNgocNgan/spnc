@@ -39,7 +39,7 @@
   padding: 0;
   margin: 0;
   height: 100%;
-  width: 100%;
+  width: 80%;
 }
 
 .code-editor .ace_editor {
@@ -98,7 +98,7 @@
 
 .quiz-container {
   width: 100%;
-  height: 100vh;
+  height: 90vh;
   overflow-y: auto;
   padding: 20px;
   background-color: white;
@@ -139,4 +139,6 @@
 
 .option-label.correct {
   background-color: #d4edda;
-  border
+  border: 1px solid #28a745;
+}
+

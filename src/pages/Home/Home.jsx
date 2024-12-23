@@ -156,7 +156,7 @@ export default function Home() {
                   <li><i className="fas fa-phone"></i> +0477 8576 852</li>
                   <li><i className="fas fa-phone"></i> +0477 8576 825</li>
                   <li><i className="fas fa-envelope"></i> info@themeuser.com</li>
-                  <li><i className="fas fa-map-marker-alt"></i> 123, New Lenio, Chicago</li>
+                  <li><i className="fas fa-map-marker-alt"></i> 96, Nguyễn Du, Q1, TP.HCM</li>
                 </ul>
               </div>
               <div className="footer-newsletter">

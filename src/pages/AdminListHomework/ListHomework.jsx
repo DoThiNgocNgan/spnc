@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { getExercisesByLesson } from "../../services/exerciseService";
 import axios from 'axios';
 import { API_URLS } from "../../api/api";
+import AccountDropdown from '../../components/AccountDropdown/AccountDropdown';
 
 const ListHomework = () => {
   const [activeLesson, setActiveLesson] = useState(null);
@@ -119,6 +120,12 @@ const ListHomework = () => {
           <li><Link to="/list-homework"><i className="icon">📝</i> Bài tập</Link></li>
           <li><Link to="/view-progress"><i className="icon">🚀</i> Đánh giá</Link></li>
         </ul>
+        <div className="nav-footer">
+          <Link to="#settings">
+            <i className="icon">⚙️</i> Cài đặt
+          </Link>
+          <AccountDropdown />
+        </div>
       </nav>
 
       <div className="course-list">

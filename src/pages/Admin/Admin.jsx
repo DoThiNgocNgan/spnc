@@ -52,8 +52,8 @@ const Admin = () => {
             <span className="course-info">5 tuần | Người mới</span>
           </Link>
           <Link to="/list-document" className="course-item">
-            <h3>Cây nhị phân tìm kiếm</h3>
-            <p>Tìm hiểu cây tìm kiếm nhị phân </p>
+            <h3>Cây tìm kiếm nhị phân</h3>
+            <p>Tìm hiểu cây tìm kiếm nhị phân  </p>
             <span className="course-info">5 tuần | Trung bình</span>
           </Link>
           <Link to="/list-document" className="course-item">

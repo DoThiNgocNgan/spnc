@@ -131,7 +131,7 @@ const AddLesson = () => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="lessonContent">Nội dung Bài Học:</label>
+            <label htmlFor="lessonContent">Tóm Tắt Bài Học:</label>
             <textarea
               id="lessonContent"
               value={lessonContent}

@@ -13,8 +13,10 @@ export const API_URLS = {
 
   // Lessons
   createLesson: `${API_BASE_URL}/lessons`,
-  getLessonsByCourse: (courseId) => `${API_BASE_URL}/courses/${courseId}/lessons`,
+  getLessonsByCourse: (courseId) => `${API_BASE_URL}/lessons/course/${courseId}`,
   getLesson: (lessonId) => `${API_BASE_URL}/lessons/${lessonId}`,
+  updateLesson: (lessonId) => `${API_BASE_URL}/lessons/${lessonId}`,
+  deleteLesson: (lessonId) => `${API_BASE_URL}/lessons/${lessonId}`,
 
   // Documents
   uploadDocument: (lessonId) => `${API_BASE_URL}/documents/upload/${lessonId}`,

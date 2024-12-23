@@ -88,77 +88,43 @@ const AdminHome = () => {
           <AccountDropdown />
         </div>
       </nav>
-      <div className="charts" style={{ display: "flex" }}>
-        <div className="allchart">
-          <div className="chart" style={{ flex: 1.5 }}>
+      <div className="dashboard-content">
+        <div className="charts-container">
+          <div className="chart-item">
             <h2>Thống kê lượt truy cập</h2>
             <Bar ref={trafficChartRef} data={trafficData} />
           </div>
-          <div className="chart">
+          <div className="chart-item">
             <h2>Thống kê lượt đăng ký</h2>
             <Bar ref={registrationChartRef} data={registrationData} />
           </div>
         </div>
-        <div className="top-students" style={{ flex: 1.5, padding: "0 20px" }}>
+        <div className="top-students">
           <h2>Top Học Sinh</h2>
-          <div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                marginBottom: "10px",
-              }}
-            >
-              {" "}
-              {/* Thêm marginBottom để tạo khoảng cách giữa các hình */}
+          <div className="students-list">
+            <div className="student-item">
               <img
                 src="src/assets/avatar1.png"
                 alt="Nil Yeager"
-                style={{ width: "40px", height: "40px", marginRight: "10px" }}
+                className="student-avatar"
               />
-              Minh Tú - 95 điểm
+              <span>Minh Tú - 95 điểm</span>
             </div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                marginBottom: "10px",
-              }}
-            >
-              {" "}
-              {/* Thêm marginBottom để tạo khoảng cách giữa các hình */}
+            <div className="student-item">
               <img
                 src="src/assets/avatar2.png"
                 alt="Theron Trump"
-                style={{ width: "40px", height: "40px", marginRight: "10px" }}
+                className="student-avatar"
               />
-              Duy An - 90 điểm
+              <span>Duy An - 90 điểm</span>
             </div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                marginBottom: "10px",
-              }}
-            >
-              {" "}
-              {/* Thêm marginBottom để tạo khoảng cách giữa các hình */}
+            <div className="student-item">
               <img
                 src="src/assets/avatar3.png"
                 alt="Tyler Mark"
-                style={{ width: "40px", height: "40px", marginRight: "10px" }}
+                className="student-avatar"
               />
-              Thúy Ngân - 88 điểm
-            </div>
-            <div style={{ display: "flex", alignItems: "center" }}>
-              {" "}
-              {/* Không cần marginBottom cho phần cuối cùng */}
-              <img
-                src="src/assets/avatar4.png"
-                alt="Johen Mark"
-                style={{ width: "40px", height: "40px", marginRight: "10px" }}
-              />
-              Trọng Đạt - 85 điểm
+              <span>Thúy Ngân - 88 điểm</span>
             </div>
           </div>
         </div>

@@ -30,4 +30,5 @@ export const API_URLS = {
   createTestcase: `${API_BASE_URL}/exercise-testcases`,
 
   // Add more endpoints as needed
+  deleteDocument: (docId) => `${API_BASE_URL}/documents/${docId}`
 };

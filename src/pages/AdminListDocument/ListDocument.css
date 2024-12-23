@@ -307,3 +307,53 @@
   width: 32px;
   height: 32px;
 }
+
+.document-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  border-radius: 6px;
+  padding: 8px 12px;
+  transition: all 0.2s ease;
+}
+
+.document-container:hover {
+  background: #e9ecef;
+}
+
+.document-link {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #495057;
+  text-decoration: none;
+}
+
+.document-link:hover {
+  color: #228be6;
+}
+
+.delete-document-button {
+  padding: 6px;
+  border: none;
+  border-radius: 4px;
+  background: #fff5f5;
+  color: #e03131;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-document-button:hover {
+  background: #fa5252;
+  color: white;
+  transform: scale(1.05);
+}
+
+.delete-document-button i {
+  font-size: 1rem;
+}

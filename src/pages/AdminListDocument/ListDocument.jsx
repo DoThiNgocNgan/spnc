@@ -154,6 +154,37 @@ const ListDocument = () => {
     }
   };
 
+  const handleDeleteDocument = async (docId, lessonId) => {
+    if (!window.confirm('Bạn có chắc chắn muốn xóa tài liệu này?')) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`${API_URLS.deleteDocument(docId)}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        // Cập nhật UI sau khi xóa thành công
+        setDocuments(prev => ({
+          ...prev,
+          [lessonId]: prev[lessonId].filter(doc => doc._id !== docId)
+        }));
+        alert('Xóa tài liệu thành công');
+      } else {
+        const errorData = await response.json().catch(() => ({ message: 'Lỗi không xác định' }));
+        alert(`Lỗi khi xóa tài liệu: ${errorData.message}`);
+      }
+    } catch (error) {
+      console.error('Error deleting document:', error);
+      alert('Có lỗi xảy ra khi xóa tài liệu');
+    }
+  };
+
   return (
     <div className="dashboard">
       <nav className="dashboard-nav">
@@ -261,15 +292,24 @@ const ListDocument = () => {
                               <ul className="documents-list">
                                 {documents[lesson._id].map((doc) => (
                                   <li key={doc._id} className="document-item">
-                                    <a
-                                      href={`${API_URLS.getDocumentById(doc._id)}`}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      className="document-link"
-                                    >
-                                      <i className="bi bi-file-earmark-text"></i>
-                                      <span>{doc.filename}</span>
-                                    </a>
+                                    <div className="document-container">
+                                      <a
+                                        href={`${API_URLS.getDocumentById(doc._id)}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="document-link"
+                                      >
+                                        <i className="bi bi-file-earmark-text"></i>
+                                        <span>{doc.filename}</span>
+                                      </a>
+                                      <button
+                                        onClick={() => handleDeleteDocument(doc._id, lesson._id)}
+                                        className="delete-document-button"
+                                        title="Xóa tài liệu"
+                                      >
+                                        <i className="bi bi-trash3-fill"></i>
+                                      </button>
+                                    </div>
                                   </li>
                                 ))}
                               </ul>

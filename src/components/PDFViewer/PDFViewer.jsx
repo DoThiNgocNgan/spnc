@@ -55,7 +55,6 @@ const PDFViewer = ({ pdfUrl, exerciseId }) => {
     try {
       console.log('Loading PDF from:', pdfUrl);
       
-      // Tải PDF từ URL
       const response = await fetch(pdfUrl);
       if (!response.ok) {
         throw new Error('Failed to fetch PDF');
@@ -65,39 +64,57 @@ const PDFViewer = ({ pdfUrl, exerciseId }) => {
       const loadingTask = pdfjsLib.getDocument({data: arrayBuffer});
       const pdf = await loadingTask.promise;
       
-      // Lấy tất cả các trang của PDF
       const numPages = pdf.numPages;
       let allText = '';
       
-      // Đọc text từ tất cả các trang
       for (let i = 1; i <= numPages; i++) {
         const page = await pdf.getPage(i);
         const textContent = await page.getTextContent();
-        const pageText = textContent.items.map(item => item.str).join(' ');
-        allText += pageText + ' ';
+        
+        let lastY = null;
+        let lastX = null;
+        
+        const processedText = textContent.items.reduce((text, item) => {
+          const currentY = item.transform[5];
+          const currentX = item.transform[4];
+          
+          if (lastY !== null && Math.abs(currentY - lastY) > 5) {
+            text += '\n';
+          } 
+          else if (lastX !== null && text.length > 0 && (currentX - lastX) > 10) {
+            text += ' ';
+          }
+          
+          lastY = currentY;
+          lastX = currentX + (item.width || 0);
+          
+          return text + item.str;
+        }, '');
+        
+        allText += processedText + ' ';
       }
 
-      console.log('Extracted text:', allText); // Debug log
+      allText = allText
+        .replace(/\s+/g, ' ')
+        .replace(/\n\s*/g, '\n')
+        .trim();
 
-      // Tìm tất cả các câu hỏi trong văn bản, bao gồm cả phần đáp án
+      console.log('Extracted text:', allText);
+
       const questionRegex = /Câu\s+\d+[:.]\s*(.*?)(?=Câu\s+\d+[:.]\s*|$)/gs;
       const matches = [...allText.matchAll(questionRegex)];
       
       const extractedQuestions = matches.map((match, index) => {
         const fullQuestionText = match[1].trim();
         
-        // Tách phần đáp án khỏi nội dung câu hỏi
         const answerMatch = fullQuestionText.match(/Đáp án:\s*([A-D])/i);
         const correctAnswer = answerMatch ? answerMatch[1] : null;
         
-        // Lấy phần nội dung câu hỏi (không bao gồm đáp án)
         const questionTextWithOptions = fullQuestionText.split(/Đáp án:/i)[0].trim();
         
-        // Tách phần câu hỏi và các đáp án
         const parts = questionTextWithOptions.split(/(?=[A-D][.)])/);
         const question = parts[0].trim();
         
-        // Xử lý các đáp án
         const options = {};
         parts.slice(1).forEach(opt => {
           const [label, ...textParts] = opt.trim().split(/[.)](.+)/);
@@ -114,7 +131,6 @@ const PDFViewer = ({ pdfUrl, exerciseId }) => {
         };
       });
 
-      console.log('Extracted questions with answers:', extractedQuestions);
       setQuestions(extractedQuestions);
     } catch (error) {
       console.error('Error loading PDF:', error);
@@ -240,7 +256,9 @@ const PDFViewer = ({ pdfUrl, exerciseId }) => {
         <div className="quiz-container">
           {questions.map((question, index) => (
             <div key={index} className="question-box">
-              <h3>Câu {question.id}: {question.text}</h3>
+              <div className="question-text">
+                <pre>{`Câu ${question.id}: ${question.text}`}</pre>
+              </div>
               <div className="options">
                 {Object.entries(question.options || {}).map(([label, text]) => (
                   <label
@@ -263,9 +281,7 @@ const PDFViewer = ({ pdfUrl, exerciseId }) => {
                       onChange={() => handleAnswerSelect(index, label)}
                       disabled={showResults}
                     />
-                    <span className="option-text">
-                      {label}. {text}
-                    </span>
+                    <pre className="option-text">{text}</pre>
                   </label>
                 ))}
               </div>

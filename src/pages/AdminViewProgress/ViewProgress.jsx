@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import "./ViewProgress.css";
+import AccountDropdown from '../../components/AccountDropdown/AccountDropdown';
 
 const ViewProgress = () => {
   const navigate = useNavigate();
@@ -78,9 +79,7 @@ const ViewProgress = () => {
           <Link to="#settings">
             <i className="icon">⚙️</i> Cài đặt
           </Link>
-          <Link to="#account">
-            <i className="icon">👤</i> Tài khoản
-          </Link>
+          <AccountDropdown />
         </div>
       </nav>
       <div className="progress-table">

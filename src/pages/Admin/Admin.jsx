@@ -1,6 +1,7 @@
 import React from "react";
 import "./Admin.css";
 import { Link } from "react-router-dom";
+import AccountDropdown from '../../components/AccountDropdown/AccountDropdown';
 
 const Admin = () => {
   return (
@@ -35,9 +36,7 @@ const Admin = () => {
           <Link to="#settings">
             <i className="icon">⚙️</i> Cài đặt
           </Link>
-          <Link to="#account">
-            <i className="icon">👤</i> Tài khoản
-          </Link>
+          <AccountDropdown />
         </div>
       </nav>
 

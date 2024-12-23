@@ -3,6 +3,7 @@ import { Bar } from "react-chartjs-2"; // Hoặc thư viện biểu đồ bạn 
 import Chart from "chart.js/auto"; // Ensure Chart.js is imported
 import "./AdminHome.css"; // Tạo file CSS để định dạng
 import { Link } from "react-router-dom"; // Thêm import Link
+import AccountDropdown from '../../components/AccountDropdown/AccountDropdown';
 
 const AdminHome = () => {
   // Dữ liệu cho biểu đồ lượt truy cập
@@ -84,9 +85,7 @@ const AdminHome = () => {
           <Link to="#settings">
             <i className="icon">⚙️</i> Cài đặt
           </Link>
-          <Link to="#account">
-            <i className="icon">👤</i> Tài khoản
-          </Link>
+          <AccountDropdown />
         </div>
       </nav>
       <div className="charts" style={{ display: "flex" }}>

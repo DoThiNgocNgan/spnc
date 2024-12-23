@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import "./ViewHomework.css";
+import AccountDropdown from '../../components/AccountDropdown/AccountDropdown';
 
 const ViewHomework = () => {
   const { studentId } = useParams();
@@ -114,9 +115,7 @@ const ViewHomework = () => {
           <Link to="#settings">
             <i className="icon">⚙️</i> Cài đặt
           </Link>
-          <Link to="#account">
-            <i className="icon">👤</i> Tài khoản
-          </Link>
+          <AccountDropdown />
         </div>
       </nav>
       <div className="content">

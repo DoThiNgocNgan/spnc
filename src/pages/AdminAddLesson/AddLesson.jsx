@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./AddLesson.css"; // Create a CSS file for styling
 import { API_URLS } from "../../api/api";
+import AccountDropdown from '../../components/AccountDropdown/AccountDropdown';
 
 const AddLesson = () => {
   const [selectedCourseId, setSelectedCourseId] = useState("");
@@ -99,9 +100,7 @@ const AddLesson = () => {
           <Link to="#settings">
             <i className="icon">⚙️</i> Cài đặt
           </Link>
-          <Link to="#account">
-            <i className="icon">👤</i> Tài khoản
-          </Link>
+          <AccountDropdown />
         </div>
       </nav>
       <div className="main-content">

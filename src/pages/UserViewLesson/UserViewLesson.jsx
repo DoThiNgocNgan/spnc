@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { API_URLS } from '../../api/api';
 import './UserViewLesson.css';
+import AccountDropdown from '../../components/AccountDropdown/AccountDropdown';
 
 const UserViewLesson = () => {
   const location = useLocation();
@@ -67,7 +68,7 @@ const UserViewLesson = () => {
         </nav>
         <div className="sidebar-footer">
           <a href="#settings">⚙️ Cài đặt</a>
-          <a href="#account">👤 Tài khoản</a>
+          <AccountDropdown />
         </div>
       </aside>
 

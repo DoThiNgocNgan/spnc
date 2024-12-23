@@ -1,6 +1,7 @@
 import React from "react";
 import "./UserDashboard.css";
 import { Link } from "react-router-dom";
+import AccountDropdown from '../../components/AccountDropdown/AccountDropdown';
 
 const UserDashboard = () => {
   return (
@@ -25,7 +26,7 @@ const UserDashboard = () => {
         </nav>
         <div className="sidebar-footer">
           <a href="#settings">⚙️ Cài đặt</a>
-          <a href="#account">👤 Tài khoản</a>
+          <AccountDropdown />
         </div>
       </aside>
       <main className="main-content">

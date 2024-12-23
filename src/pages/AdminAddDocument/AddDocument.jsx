@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./AddDocument.css";
 import { Link } from "react-router-dom";
 import { API_URLS } from "../../api/api";
+import AccountDropdown from '../../components/AccountDropdown/AccountDropdown';
 
 const AddDocument = () => {
   const [courseId, setCourseId] = useState("");
@@ -109,9 +110,7 @@ const AddDocument = () => {
           <Link to="#settings">
             <i className="icon">⚙️</i> Cài đặt
           </Link>
-          <Link to="#account">
-            <i className="icon">👤</i> Tài khoản
-          </Link>
+          <AccountDropdown />
         </div>
       </nav>
       <div className="content" style={{ width: "100%", marginLeft: "auto" }}>

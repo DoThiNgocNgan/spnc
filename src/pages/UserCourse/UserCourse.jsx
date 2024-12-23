@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./UserCourse.css";
 import { Link, useNavigate } from "react-router-dom";
 import { API_URLS } from "../../api/api";
+import AccountDropdown from '../../components/AccountDropdown/AccountDropdown';
 
 const UserCourse = () => {
   const navigate = useNavigate();
@@ -52,7 +53,7 @@ const UserCourse = () => {
         </nav>
         <div className="sidebar-footer">
           <a href="#settings">⚙️ Cài đặt</a>
-          <a href="#account">👤 Tài khoản</a>
+          <AccountDropdown />
         </div>
       </aside>
 

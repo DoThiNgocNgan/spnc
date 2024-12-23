@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './UserMessages.css';
+import AccountDropdown from '../../components/AccountDropdown/AccountDropdown';
 
 const UserMessages = () => {
   const [messages, setMessages] = useState([]);
@@ -44,7 +45,7 @@ const UserMessages = () => {
                 </nav>
                 <div className="sidebar-footer">
                     <a href="#settings">⚙️ Cài đặt</a>
-                    <a href="#account">👤 Tài khoản</a>
+                    <AccountDropdown />
                 </div>
             </aside>
       

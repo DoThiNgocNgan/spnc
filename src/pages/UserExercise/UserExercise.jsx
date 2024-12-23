@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import PDFViewer from '../../components/PDFViewer/PDFViewer';
 import { getExercisesByLesson } from '../../services/exerciseService';
 import './UserExercise.css';
+import AccountDropdown from '../../components/AccountDropdown/AccountDropdown';
 
 const UserExercise = () => {
     const [exercises, setExercises] = useState([]);
@@ -98,7 +99,7 @@ const UserExercise = () => {
                 </nav>
                 <div className="sidebar-footer">
                     <a href="#settings">⚙️ Cài đặt</a>
-                    <a href="#account">👤 Tài khoản</a>
+                    <AccountDropdown />
                 </div>
             </aside>
 

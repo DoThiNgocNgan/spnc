@@ -5,6 +5,7 @@ export const API_URLS = {
   register: `${API_BASE_URL}/auth/register`,
   login: `${API_BASE_URL}/auth/login`,
   forgotPassword: `${API_BASE_URL}/auth/forgot-password`,
+  resetPassword: `${API_BASE_URL}/auth/reset-password`,
 
   // Courses
   courses: `${API_BASE_URL}/courses`,

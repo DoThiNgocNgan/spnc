@@ -94,10 +94,6 @@ const router = createBrowserRouter([
     element: <UserViewLesson />,
   },
   {
-    path: "/reset-password",
-    element: <ResetPassword />,
-  }, 
-  {
     path: "/reset-link",
     element: <ResetLink />,
   },
@@ -116,6 +112,10 @@ const router = createBrowserRouter([
   {
     path: "/user-messages",
     element: <UserMessages />,
+  },
+  {
+    path: "/reset-password/:token",
+    element: <ResetPassword />,
   },
 ]);
 

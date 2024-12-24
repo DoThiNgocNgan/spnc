@@ -48,29 +48,8 @@ const SignIn = ({ onOpenCreateAccount }) => {
     }
   };
 
-  const handleForgotPassword = async () => {
-    if (!email) {
-      alert("Vui lòng nhập email của bạn để lấy lại mật khẩu.");
-      return;
-    }
-    try {
-      const response = await fetch(API_URLS.forgotPassword, { // Thay đổi API_URLS.forgotPassword thành URL thực tế
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
-      });
-      const data = await response.json();
-      if (response.ok) {
-        alert("Email xác nhận đã được gửi đến địa chỉ của bạn.");
-      } else {
-        alert(data.message); // Hiển thị thông báo lỗi từ backend
-      }
-    } catch (error) {
-      console.error("Error during forgot password:", error);
-      alert("Đã xảy ra lỗi, vui lòng thử lại.");
-    }
+  const handleForgotPassword = () => {
+    navigate('/reset-link');
   };
 
   return (

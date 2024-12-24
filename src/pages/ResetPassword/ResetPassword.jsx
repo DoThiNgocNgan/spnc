@@ -1,19 +1,24 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { API_URLS } from "../../api/api";
 import "./ResetPassword.css";
 
 const ResetPassword = () => {
+  const navigate = useNavigate();
   const { token } = useParams();
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState("");
 
   const handleResetPassword = async (e) => {
     e.preventDefault();
     if (newPassword !== confirmPassword) {
-      alert("Mật khẩu không khớp!");
+      setMessage("Mật khẩu không khớp!");
       return;
     }
+    
+    setIsLoading(true);
     try {
       const response = await fetch(API_URLS.resetPassword, {
         method: "POST",
@@ -22,16 +27,21 @@ const ResetPassword = () => {
         },
         body: JSON.stringify({ token, newPassword }),
       });
+      
       const data = await response.json();
       if (response.ok) {
-        alert("Mật khẩu đã được đặt lại thành công!");
-        // Redirect to login or another page
+        setMessage("Mật khẩu đã được đặt lại thành công!");
+        // Chuyển về trang đăng nhập sau 2 giây
+        setTimeout(() => {
+          navigate('/login');
+        }, 2000);
       } else {
-        alert(data.message);
+        setMessage(data.message);
       }
     } catch (error) {
-      console.error("Error during reset password:", error);
-      alert("Đã xảy ra lỗi, vui lòng thử lại.");
+      setMessage("Đã xảy ra lỗi, vui lòng thử lại.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -39,7 +49,6 @@ const ResetPassword = () => {
     <div className="reset-password-page">
       <div className="reset-password-form">
         <h2>Đặt mật khẩu mới</h2>
-        <p>Bạn có thể đặt mật khẩu mới cho tài khoản của mình.</p>
         <form onSubmit={handleResetPassword}>
           <input
             type="password"
@@ -55,22 +64,18 @@ const ResetPassword = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
-          <button type="submit">Đặt lại mật khẩu</button>
+          <button 
+            type="submit"
+            disabled={isLoading}
+          >
+            {isLoading ? 'Đang xử lý...' : 'Đặt lại mật khẩu'}
+          </button>
         </form>
-        <p>
-          Quay lại đăng nhập? <a href="/login">Đăng nhập</a>
-        </p>
-      </div>
-      <div className="reset-password-info">
-        <h2>Bạn không thể truy cập vào tài khoản của mình?</h2>
-        <p>
-          Đừng lo! Chỉ cần nhập email đã đăng ký, chúng tôi sẽ gửi cho bạn một liên kết để đặt lại mật khẩu.
-        </p>
-        <ul style={{ display: 'flex', margin: 0, padding: 0 }}>
-          <li style={{ marginRight: '10px' }}>✔️ Nhanh chóng và an toàn</li>
-          <li style={{ marginRight: '10px' }}>✔️ Bảo mật dữ liệu</li>
-          <li>✔️ Hỗ trợ 24/7</li>
-        </ul>
+        {message && (
+          <p className={message.includes('thành công') ? 'success-message' : 'error-message'}>
+            {message}
+          </p>
+        )}
       </div>
     </div>
   );

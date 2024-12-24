@@ -23,6 +23,7 @@ import UserExercise from "./pages/UserExercise/UserExercise"
 import TestPDF from './pages/TestPDF/TestPDF';
 import UserMessages from './pages/UserMessages/UserMessages';
 import { createBrowserRouter, RouterProvider } from "react-router-dom"; 
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 
 const router = createBrowserRouter([
   {
@@ -39,59 +40,115 @@ const router = createBrowserRouter([
   },
   {
     path: "/admin",
-    element: <Admin />,
+    element: (
+      <ProtectedRoute>
+        <Admin />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/user-homework",
-    element: <UserHomework />,
+    element: (
+      <ProtectedRoute>
+        <UserHomework />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/user-course",
-    element: <UserCourse />,
+    element: (
+      <ProtectedRoute>
+        <UserCourse />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/assignment-creator",
-    element: <AssignmentCreator />,
+    element: (
+      <ProtectedRoute>
+        <AssignmentCreator />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/add-assignment",
-    element: <AddAssignment />,
+    element: (
+      <ProtectedRoute>
+        <AddAssignment />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/list-homework",
-    element: <ListHomework />,
+    element: (
+      <ProtectedRoute>
+        <ListHomework />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/view-progress",
-    element: <ViewProgress />,
+    element: (
+      <ProtectedRoute>
+        <ViewProgress />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/view-homework/:studentId",
-    element: <ViewHomework />,
+    element: (
+      <ProtectedRoute>
+        <ViewHomework />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/admin-home",
-    element: <AdminHome />,
+    element: (
+      <ProtectedRoute>
+        <AdminHome />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/user-dashboard",
-    element: <UserDashboard />,
+    element: (
+      <ProtectedRoute>
+        <UserDashboard />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/add-document",
-    element: <AddDocument />,
+    element: (
+      <ProtectedRoute>
+        <AddDocument />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/list-document",
-    element: <ListDocument />,
+    element: (
+      <ProtectedRoute>
+        <ListDocument />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/add-lesson",
-    element: <AddLesson />,
+    element: (
+      <ProtectedRoute>
+        <AddLesson />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/user-view-lesson",
-    element: <UserViewLesson />,
+    element: (
+      <ProtectedRoute>
+        <UserViewLesson />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/reset-link",
@@ -99,11 +156,19 @@ const router = createBrowserRouter([
   },
   {
     path: "/test-editor",
-      element: <TestEditer />,
+    element: (
+      <ProtectedRoute>
+        <TestEditer />
+      </ProtectedRoute>
+    ),
   },
   {
-   path: "/user-exercise",
-      element: <UserExercise />,
+    path: "/user-exercise",
+    element: (
+      <ProtectedRoute>
+        <UserExercise />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/test-pdf",
@@ -111,7 +176,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/user-messages",
-    element: <UserMessages />,
+    element: (
+      <ProtectedRoute>
+        <UserMessages />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/reset-password/:token",

@@ -6,6 +6,7 @@ import AccountDropdown from '../../components/AccountDropdown/AccountDropdown';
 
 const UserMessages = () => {
   const [messages, setMessages] = useState([]);
+  const [expandedMessageId, setExpandedMessageId] = useState(null);
 
   useEffect(() => {
     fetchMessages();
@@ -29,6 +30,10 @@ const UserMessages = () => {
     } catch (error) {
       console.error("Error fetching messages:", error);
     }
+  };
+
+  const toggleMessage = (messageId) => {
+    setExpandedMessageId(expandedMessageId === messageId ? null : messageId);
   };
 
   return (
@@ -55,15 +60,26 @@ const UserMessages = () => {
           <div className="messages-list">
             {messages.map((message) => (
               <div key={message._id} className="message-card">
-                <div className="message-header">
+                <div 
+                  className="message-header"
+                  onClick={() => toggleMessage(message._id)}
+                  style={{ cursor: 'pointer' }}
+                >
                   <h3>{message.exercise_id.title}</h3>
-                  <span className="message-date">
-                    {new Date(message.createdAt).toLocaleString('vi-VN')}
-                  </span>
+                  <div className="message-header-right">
+                    <span className="message-date">
+                      {new Date(message.createdAt).toLocaleString('vi-VN')}
+                    </span>
+                    <span className="expand-icon">
+                      {expandedMessageId === message._id ? '▼' : '▶'}
+                    </span>
+                  </div>
                 </div>
-                <div className="message-content">
-                  {message.feedback}
-                </div>
+                {expandedMessageId === message._id && (
+                  <div className="message-content">
+                    {message.feedback}
+                  </div>
+                )}
               </div>
             ))}
             {messages.length === 0 && (

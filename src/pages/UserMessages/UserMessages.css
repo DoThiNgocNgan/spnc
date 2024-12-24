@@ -97,6 +97,23 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
+  padding: 10px;
+  transition: background-color 0.2s;
+}
+
+.message-header:hover {
+  background-color: #f5f5f5;
+}
+
+.message-header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.expand-icon {
+  color: #666;
+  font-size: 0.8em;
 }
 
 .message-header h3 {
@@ -113,6 +130,9 @@
   color: #444;
   line-height: 1.5;
   white-space: pre-wrap;
+  padding: 15px;
+  border-top: 1px solid #eee;
+  margin-top: 10px;
 }
 
 .no-messages {

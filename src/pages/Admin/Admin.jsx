@@ -1,15 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Admin.css";
 import { Link } from "react-router-dom";
 import AccountDropdown from '../../components/AccountDropdown/AccountDropdown';
 
 const Admin = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
   return (
     <div className="dashboard">
-      <nav className="dashboard-nav">
+      <nav className={`dashboard-nav ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
         <div className="logo">
           <span>Newlearning</span>
         </div>
+        
+        <button 
+          className="mobile-menu-button show-on-mobile"
+          onClick={toggleMobileMenu}
+        >
+          ☰
+        </button>
+
         <ul>
           <li className="active">
             <Link to="/admin-home">

@@ -181,3 +181,103 @@ h1 {
     grid-template-columns: 1fr;
   }
 }
+
+/* Responsive Design */
+@media (max-width: 1024px) { /* For iPad & smaller screens */
+  .dashboard {
+    flex-direction: column;
+  }
+
+  .dashboard-nav {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .dashboard-nav ul {
+    flex-direction: row;
+    margin: 0 20px;
+  }
+
+  .dashboard-nav li {
+    margin: 0 10px;
+  }
+
+  .logo {
+    margin-bottom: 0;
+  }
+
+  .dashboard-main {
+    padding: 15px;
+  }
+
+  .stats-container {
+    flex-wrap: wrap;
+  }
+
+  .stat-card {
+    width: 45%;
+    margin-bottom: 15px;
+  }
+}
+
+@media (max-width: 768px) { /* For iPhone & mobile devices */
+  .dashboard-nav {
+    padding: 10px 5px;
+  }
+
+  .dashboard-nav ul {
+    display: none; /* Hide normal menu */
+  }
+
+  /* Add hamburger menu for mobile */
+  .mobile-menu-button {
+    display: block;
+  }
+
+  .dashboard-nav.mobile-open ul {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background: white;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+
+  .stat-card {
+    width: 100%;
+  }
+
+  .course-menu {
+    grid-template-columns: 1fr;
+  }
+
+  .course-item {
+    margin-bottom: 15px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+}
+
+/* Add utility classes */
+.hide-on-mobile {
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+.show-on-mobile {
+  display: none;
+  @media (max-width: 768px) {
+    display: block;
+  }
+}

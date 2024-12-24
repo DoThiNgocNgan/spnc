@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Bar } from "react-chartjs-2"; // Hoặc thư viện biểu đồ bạn chọn
 import Chart from "chart.js/auto"; // Ensure Chart.js is imported
 import "./AdminHome.css"; // Tạo file CSS để định dạng
@@ -6,6 +6,12 @@ import { Link } from "react-router-dom"; // Thêm import Link
 import AccountDropdown from '../../components/AccountDropdown/AccountDropdown';
 
 const AdminHome = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
   // Dữ liệu cho biểu đồ lượt truy cập
   const trafficData = {
     labels: ["1 Jan", "2 Jan", "3 Jan", "4 Jan", "5 Jan", "6 Jan", "7 Jan"],
@@ -55,10 +61,18 @@ const AdminHome = () => {
 
   return (
     <div className="dashboard">
-      <nav className="dashboard-nav">
+      <nav className={`dashboard-nav ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
         <div className="logo">
           <span>Newlearning</span>
         </div>
+
+        <button 
+          className="mobile-menu-button show-on-mobile"
+          onClick={toggleMobileMenu}
+        >
+          ☰
+        </button>
+
         <ul>
           <li className="active">
             <Link to="/admin-home">

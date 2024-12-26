@@ -41,7 +41,7 @@ const TestPDF = () => {
       <div className="sample-pdf-section">
         <h3>Hoặc xem PDF mẫu:</h3>
         <button 
-          onClick={() => setPdfUrl('http://localhost:5000/uploads/exercises/sample.pdf')}
+          onClick={() => setPdfUrl('http://34.142.187.24:5000/uploads/exercises/sample.pdf')}
           className="sample-button"
         >
           Xem PDF mẫu

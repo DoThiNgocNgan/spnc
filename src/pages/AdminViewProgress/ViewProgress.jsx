@@ -16,7 +16,7 @@ const ViewProgress = () => {
     try {
       const token = localStorage.getItem('token');
       
-      const response = await axios.get('http://localhost:5000/api/users/students', {
+      const response = await axios.get('http://34.142.187.24:5000/api/users/students', {
         headers: {
           'Authorization': `Bearer ${token}`
         }

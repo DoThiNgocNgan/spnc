@@ -7,7 +7,7 @@ const ExerciseDetail = ({ exercise }) => {
       <h2>{exercise.title}</h2>
       {exercise.pdfFile && (
         <PDFViewer 
-          pdfUrl={`http://localhost:5000${exercise.pdfFile}`}
+          pdfUrl={`http://34.142.187.24:5000${exercise.pdfFile}`}
         />
       )}
       {/* Các phần khác của trang */}

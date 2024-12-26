@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:5000/api';
+const BASE_URL = 'http://34.142.187.24:5000/api';
 
 export const createExercise = async (formData) => {
     try {

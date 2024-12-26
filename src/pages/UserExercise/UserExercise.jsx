@@ -20,7 +20,7 @@ const UserExercise = () => {
     useEffect(() => {
         const fetchCourses = async () => {
             try {
-                const response = await fetch('http://localhost:5000/api/courses', {
+                const response = await fetch('http://34.142.187.24:5000/api/courses', {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
                     }
@@ -39,7 +39,7 @@ const UserExercise = () => {
         const fetchLessons = async () => {
             if (selectedCourse) {
                 try {
-                    const response = await fetch(`http://localhost:5000/api/lessons/course/${selectedCourse}`, {
+                    const response = await fetch(`http://34.142.187.24:5000/api/lessons/course/${selectedCourse}`, {
                         headers: {
                             'Authorization': `Bearer ${localStorage.getItem('token')}`
                         }
@@ -73,7 +73,7 @@ const UserExercise = () => {
     }, [selectedLesson]);
 
     const handleStartExercise = (exercise) => {
-        const baseUrl = 'http://localhost:5000';
+        const baseUrl = 'http://34.142.187.24:5000';
         const pdfPath = exercise.pdfFile.startsWith('/') 
             ? exercise.pdfFile 
             : `/${exercise.pdfFile}`;

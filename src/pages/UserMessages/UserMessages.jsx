@@ -18,7 +18,7 @@ const UserMessages = () => {
       const userId = localStorage.getItem('userId');
 
       const response = await axios.get(
-        `http://localhost:5000/api/submissions/feedback/${userId}`,
+        `http://34.142.187.24:5000/api/submissions/feedback/${userId}`,
         {
           headers: {
             'Authorization': `Bearer ${token}`

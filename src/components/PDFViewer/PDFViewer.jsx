@@ -23,7 +23,7 @@ const PDFViewer = ({ pdfUrl, exerciseId }) => {
     const fetchExerciseType = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch(`http://localhost:5000/api/exercises/${exerciseId}`, {
+        const response = await fetch(`http://34.142.187.24:5000/api/exercises/${exerciseId}`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -171,7 +171,7 @@ const PDFViewer = ({ pdfUrl, exerciseId }) => {
 
       console.log('Submitting payload:', payload);
 
-      const response = await fetch('http://localhost:5000/api/submissions/quiz', {
+      const response = await fetch('http://34.142.187.24:5000/api/submissions/quiz', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -209,13 +209,13 @@ const PDFViewer = ({ pdfUrl, exerciseId }) => {
 
   const getPdfUrl = (pdfPath) => {
     if (!pdfPath) return '';
-    return `http://localhost:5000/uploads/exercises/${pdfPath}`.replace(/([^:]\/)\/+/g, "$1");
+    return `http://34.142.187.24:5000/uploads/exercises/${pdfPath}`.replace(/([^:]\/)\/+/g, "$1");
   };
 
   const handleCodeSubmit = async () => {
     try {
       setSubmitting(true);
-      const response = await fetch('http://localhost:5000/api/submissions/code', {
+      const response = await fetch('http://34.142.187.24:5000/api/submissions/code', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

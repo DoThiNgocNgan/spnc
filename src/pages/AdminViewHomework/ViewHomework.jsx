@@ -21,7 +21,7 @@ const ViewHomework = () => {
       
       // Gọi API lấy submissions
       const response = await axios.get(
-        `http://localhost:5000/api/submissions/student/${studentId}`,
+        `http://34.142.187.24:5000/api/submissions/student/${studentId}`,
         {
           headers: {
             'Authorization': `Bearer ${token}`
@@ -32,7 +32,7 @@ const ViewHomework = () => {
 
       // Gọi API lấy thông tin user
       const userResponse = await axios.get(
-        `http://localhost:5000/api/submissions/user/${studentId}`,
+        `http://34.142.187.24:5000/api/submissions/user/${studentId}`,
         {
           headers: {
             'Authorization': `Bearer ${token}`
@@ -65,7 +65,7 @@ const ViewHomework = () => {
     try {
       const token = localStorage.getItem('token');
       await axios.post(
-        `http://localhost:5000/api/submissions/feedback/${submissionId}`,
+        `http://34.142.187.24:5000/api/submissions/feedback/${submissionId}`,
         { feedback },
         {
           headers: {

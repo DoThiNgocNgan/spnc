@@ -19,7 +19,7 @@ const ListHomework = () => {
 
   const fetchCourses = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/courses');
+      const response = await fetch('http://34.142.187.24:5000/api/courses');
       if (!response.ok) throw new Error('Failed to fetch courses');
       const data = await response.json();
       setCourses(data);
@@ -31,7 +31,7 @@ const ListHomework = () => {
 
   const fetchLessons = async (courseId) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/courses/${courseId}/lessons`);
+      const response = await fetch(`http://34.142.187.24:5000/api/courses/${courseId}/lessons`);
       if (!response.ok) throw new Error('Failed to fetch lessons');
       const data = await response.json();
       setLessons(prev => ({
@@ -72,7 +72,7 @@ const ListHomework = () => {
   };
 
   const handleViewPdf = (pdfPath) => {
-    const pdfUrl = `http://localhost:5000/${pdfPath}`;
+    const pdfUrl = `http://34.142.187.24:5000/${pdfPath}`;
     window.open(pdfUrl, '_blank');
   };
 

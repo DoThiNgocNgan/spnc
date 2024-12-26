@@ -31,6 +31,24 @@ export default function Home() {
 
     const closeCreateAccount = () => setCreateAccountOpen(false);
 
+    const scrollToCategories = (e) => {
+        e.preventDefault();
+        const categoriesSection = document.querySelector('.top-categories');
+        categoriesSection.scrollIntoView({ behavior: 'smooth' });
+    };
+
+    const scrollToPopularCourses = (e) => {
+        e.preventDefault();
+        const coursesSection = document.querySelector('.latest-blogs');
+        coursesSection.scrollIntoView({ behavior: 'smooth' });
+    };
+
+    const scrollToContact = (e) => {
+        e.preventDefault();
+        const footerSection = document.querySelector('.footer');
+        footerSection.scrollIntoView({ behavior: 'smooth' });
+    };
+
     return (
       <div className="app">
         <header className="main-header">
@@ -40,9 +58,9 @@ export default function Home() {
             </div>
             <div className="nav-links">
               <Link to="/home" className="nav-link">Trang chủ</Link>
-              <Link to="/courses" className="nav-link">Khóa học</Link>
-              <Link to="/about" className="nav-link">Về chúng tôi</Link>
-              <Link to="/contact" className="nav-link">Liên hệ</Link>
+              <a href="#" onClick={scrollToCategories} className="nav-link">Khóa học</a>
+              <a href="#" onClick={scrollToPopularCourses} className="nav-link">Về chúng tôi</a>
+              <a href="#" onClick={scrollToContact} className="nav-link">Liên hệ</a>
             </div>
             <div className="nav-actions">
               <button onClick={openSignIn} className="account-button">Đăng nhập</button>
@@ -145,9 +163,9 @@ export default function Home() {
                 <h3>Tài nguyên</h3>
                 <ul>
                   <li><Link to="/">Trang chủ</Link></li>
-                  <li><Link to="/courses">Khóa học</Link></li>
-                  <li><Link to="/blog">Bài viết</Link></li>
-                  <li><Link to="/terms">Điều khoản và điều kiện</Link></li>
+                  <li><Link to="/">Khóa học</Link></li>
+                  <li><Link to="/">Bài viết</Link></li>
+                  <li><Link to="/">Điều khoản và điều kiện</Link></li>
                 </ul>
               </div>
               <div className="footer-contact">

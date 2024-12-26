@@ -74,7 +74,7 @@ const ResetLink = () => {
                         {message && <p className={isSuccess ? 'success-message' : 'error-message'}>{message}</p>}
                     </>
                 )}
-                <p>Nhớ mật khẩu? <a href="/login">Đăng nhập</a></p>
+                <p>Nhớ mật khẩu? <a href="/">Đăng nhập</a></p>
             </div>
             <div className="info-container">
             <h2>Không truy cập được tài khoản?</h2>

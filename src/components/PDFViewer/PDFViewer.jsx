@@ -19,6 +19,7 @@ const PDFViewer = ({ pdfUrl, exerciseId }) => {
   const [code, setCode] = useState('');
   const [pdfDoc, setPdfDoc] = useState(null);
   const [exerciseType, setExerciseType] = useState(null);
+  const [unansweredQuestions, setUnansweredQuestions] = useState([]);
 
   useEffect(() => {
     const fetchExerciseType = async () => {
@@ -163,6 +164,21 @@ const PDFViewer = ({ pdfUrl, exerciseId }) => {
 
   const submitQuiz = async () => {
     try {
+      const unanswered = questions.filter((_, index) => !selectedAnswers[index])
+                                .map(q => q.id);
+      
+      if (unanswered.length > 0) {
+        setUnansweredQuestions(unanswered);
+        alert(`Bạn chưa trả lời câu: ${unanswered.join(', ')}`);
+        return;
+      }
+
+      const confirmSubmit = window.confirm('Bạn có muốn nộp bài không?');
+      
+      if (!confirmSubmit) {
+        return;
+      }
+
       const token = localStorage.getItem('token');
       const payload = {
         exercise_id: exerciseId,
@@ -265,12 +281,10 @@ const PDFViewer = ({ pdfUrl, exerciseId }) => {
                   <label
                     key={`${index}-${label}`}
                     className={`option-label ${
-                      showResults
-                        ? label === question.correctAnswer
+                      showResults && selectedAnswers[index] === label
+                        ? selectedAnswers[index] === question.correctAnswer
                           ? 'correct'
-                          : selectedAnswers[index] === label && selectedAnswers[index] !== question.correctAnswer
-                            ? 'incorrect'
-                            : ''
+                          : 'incorrect'
                         : ''
                     }`}
                   >
@@ -286,7 +300,7 @@ const PDFViewer = ({ pdfUrl, exerciseId }) => {
                   </label>
                 ))}
               </div>
-              {showResults && (
+              {showResults && selectedAnswers[index] && (
                 <div className="answer-feedback">
                   <p>Đáp án đúng: {question.correctAnswer}</p>
                 </div>
@@ -294,6 +308,12 @@ const PDFViewer = ({ pdfUrl, exerciseId }) => {
             </div>
           ))}
           
+          {unansweredQuestions.length > 0 && (
+            <div className="warning-message">
+              <p>Bạn chưa trả lời các câu: {unansweredQuestions.join(', ')}</p>
+            </div>
+          )}
+
           {questions.length > 0 && !showResults && (
             <button 
               className="submit-button" 

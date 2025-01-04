@@ -56,7 +56,7 @@ const UserMessages = () => {
       
       <div className="content">
         <div className="messages-container">
-          <h2>Phản hồi từ giảng viên</h2>
+          <h2>Phản hồi từ giáo viên</h2>
           <div className="messages-list">
             {messages.map((message) => (
               <div key={message._id} className="message-card">
